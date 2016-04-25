@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="principal.xhtml">
+        <ui:define name="dadosBanco">
+            <f:metadata>
+                <f:viewParam name="id" value="#{alunoBean.id}"/>
+                <f:event type="preRenderView" listener="#{alunoBean.loadModel}" />
+            </f:metadata>
+        </ui:define>
+        <ui:define name="titulo">Cadastrar Aluno</ui:define>
+        <ui:define name="content">
+            <h:form id="form_aluno_view">
+                <p:growl id="message" sticky="false" showDetail="false" life="4500"/>
+                <div class="conjunto">
+                    <p:panelGrid columns="4" columnClasses="label, value" style="text-align: left;" styleClass="cadastros">
+
+                        <p:outputLabel value="Nome: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="nome do aluno" required="true" 
+                                      requiredMessage="Informar nome do aluno"
+                                      value="#{alunoBean.aluno.nome}" maxlength="80" size="45"/>
+
+                        <p:outputLabel value="Matrícula: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="Informar matrícula." required="true"
+                                      requiredMessage="Preencha o campo da matrícula."
+                                      value="#{alunoBean.aluno.matricula}" maxlength="30" size="30"/>
+
+                        <p:outputLabel value="E-mail: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="email do aluno" required="true" 
+                                      requiredMessage="Informar o email do aluno"
+                                      value="#{alunoBean.aluno.email}" maxlength="150" size="45"/>
+                        <p:outputLabel value="Telefone:" style="white-space: nowrap; font-weight: bolder" for="telefone"/>
+                        <h:panelGroup>
+                            <p:inputText  placeholder="DDD" required="true" id="telefone"
+                                          requiredMessage="Informe o DDD"
+                                          value="#{alunoBean.aluno.telefone.ddd}" maxlength="3" size="3" style="margin-right: 2%"/>
+
+                            <p:inputText  placeholder="Telefone" required="true"
+                                          requiredMessage="Informe o telefone"
+                                          value="#{alunoBean.aluno.telefone.numero}" maxlength="10" size="20" style="margin-right: 2%"/>
+
+                        </h:panelGroup>
+
+                        <p:outputLabel value="CPF: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputMask  placeholder="CPF do aluno" required="true" value="#{alunoBean.aluno.cpf}"
+                                      requiredMessage="Informar o CPF do aluno" 
+                                      mask="999.999.999-99" size="30"/>
+
+                        <p:outputLabel value="RG: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputMask  placeholder="Informe o seu RG." required="true"
+                                      requiredMessage="Preencha o campo do RG" mask="9999999?999999999999999"
+                                      value="#{alunoBean.aluno.rg}" maxlength="15" size="15"/>
+
+                        <p:outputLabel value="Sexo: " for="s_sexo" style="white-space: nowrap; font-weight: bolder"/>
+                        <p:selectOneMenu id="s_sexo"
+                                         value="#{alunoBean.aluno.sexo}" filter="true"
+                                         filterMatchMode="startsWith" required="true"
+                                         requiredMessage="Selecione o sexo"
+                                         converter="sexoConverter" effect="fade">
+                            <f:selectItem itemLabel="Selecione o sexo" itemValue="#{null}"/>
+                            <f:selectItems value="#{alunoBean.sexos}" 
+                                           var="sexo" itemLabel="#{sexo.descricao}" 
+                                           itemValue="#{sexo}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Data Nascimento: " for="nascimento" style="white-space: nowrap; font-weight: bolder" />
+                            <p:calendar value="#{alunoBean.aluno.dataNascimento}" id="nascimento" yearRange="c-120:c+0"
+                                        pattern="dd/M/yyyy" placeholder="Data de Nascimento" navigator="true"
+                                        required="true" mask="true" locale="br" requiredMessage="Data dascimento necessária" />
+
+                        <p:outputLabel value="Estado Civil: " for="s_civil" style="white-space: nowrap; font-weight: bolder"/>
+                        <p:selectOneMenu id="s_civil"
+                                         value="#{alunoBean.aluno.estadoCivil}" filter="true"
+                                         filterMatchMode="startsWith" required="true"
+                                         requiredMessage="Selecione o sexo"
+                                         converter="estadoCivilConverter" effect="fade">
+                            <f:selectItem itemLabel="Estado civil" itemValue="#{null}"/>
+                            <f:selectItems value="#{alunoBean.estadosCivis}" 
+                                           var="estadoCivil" itemLabel="#{estadoCivil.descricao}" 
+                                           itemValue="#{estadoCivil}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Nacionalidade: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="Nacionalidade do aluno" required="true" value="#{alunoBean.aluno.nacionalidade}"
+                                      requiredMessage="Informar a nacionalidade do aluno" maxlength="200" size="45"/>
+
+                        <p:outputLabel value="Naturalidade: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="Naturalidade do aluno" required="true" value="#{alunoBean.aluno.naturalidade}"
+                                      requiredMessage="Informar a naturalidade do aluno" maxlength="120" size="45"/>
+
+                        <p:outputLabel value="Filiação Pai: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="Pai do aluno" required="true" value="#{alunoBean.aluno.filiacaoPai}"
+                                      requiredMessage="Informe o nome do pai do aluno" maxlength="80" size="45"/>
+
+                        <p:outputLabel value="Filiação Mãe " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="Mãe do aluno" required="true" value="#{alunoBean.aluno.filiacaoMae}"
+                                      requiredMessage="Informe o nome da mãe do aluno" maxlength="80" size="45"/>
+
+                        <p:outputLabel value="Deficiência? " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="informar deficiência, caso possua." required="true"
+                                      requiredMessage="Preencha o campo deficiência."
+                                      value="#{alunoBean.aluno.deficiencia}" maxlength="80" size="45"/>
+
+                        <p:outputLabel value="Modulo Atual: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="módulo." required="true"
+                                      requiredMessage="Informar o módulo atual."
+                                      value="#{alunoBean.aluno.moduloAtual}" maxlength="2" size="10"/>
+
+                        <p:outputLabel value="Ano entrada: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="ano." required="true"
+                                      requiredMessage="Informar o ano de entrda."
+                                      value="#{alunoBean.aluno.anoEntrada}" maxlength="4" size="10"/>
+
+                        <p:outputLabel value="Curso: " for="s_curso" style="white-space: nowrap; font-weight: bolder"/>
+                        <p:selectOneMenu id="s_curso"
+                                         value="#{alunoBean.aluno.curso}" filter="true"
+                                         filterMatchMode="startsWith" required="true"
+                                         requiredMessage="Selecione um curso"
+                                         converter="cursoConverter" effect="fade">
+                            <f:selectItem itemLabel="Selecione um curso" itemValue="#{null}"/>
+                            <f:selectItems value="#{alunoBean.cursos}" 
+                                           var="curso" itemLabel="#{curso.nome}" 
+                                           itemValue="#{curso}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Cidade: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="nome da cidade" required="true"
+                                      requiredMessage="Informar a cidade."
+                                      value="#{alunoBean.aluno.endereco.cidade}" maxlength="200" size="45"/>
+                        
+                        <p:outputLabel value="Estado: " for="s_estado" style="white-space: nowrap; font-weight: bolder"/>
+                        <p:selectOneMenu id="s_estado"
+                                         value="#{alunoBean.aluno.endereco.estado}" filter="true"
+                                         filterMatchMode="startsWith" required="true"
+                                         requiredMessage="Selecione o estado"
+                                         converter="estadoConverter" effect="fade">
+                            <f:selectItem itemLabel="Selecione o estado" itemValue="#{null}"/>
+                            <f:selectItems value="#{alunoBean.estados}" 
+                                           var="estado" itemLabel="#{estado.descricao}" 
+                                           itemValue="#{estado}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Logradouro: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="logradouro" required="true"
+                                      requiredMessage="Informar o logradouro."
+                                      value="#{alunoBean.aluno.endereco.logradouro}" maxlength="200" size="45"/>
+
+                        <p:outputLabel value="Bairro: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="nome do bairro" required="true"
+                                      requiredMessage="Informar o Bairro."
+                                      value="#{alunoBean.aluno.endereco.bairro}" maxlength="100" size="45"/>
+
+                        <p:outputLabel value="CEP: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputMask  placeholder="cep do endereço" required="true"
+                                      requiredMessage="Informe o CEP." mask="99999-999"
+                                      value="#{alunoBean.aluno.endereco.cep}" maxlength="9" size="20"/>
+
+                        <p:outputLabel value="Número: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="número" required="true"
+                                      requiredMessage="Informar o número do endereço."
+                                      value="#{alunoBean.aluno.endereco.numero}" maxlength="10" size="15"/>
+
+                        <p:inputText value="#{alunoBean.aluno.id}" type="hidden"/>
+                    </p:panelGrid>
+                    <center>
+                        <p:commandButton id="cmdCanc" type="request" value="Cancelar" action="#{alunoBean.cancel()}" update="message" />
+                        <p:commandButton value="Salvar" actionListener="#{alunoBean.salvar()}" update="message @form"/>
+                    </center>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

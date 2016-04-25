@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="principal.xhtml">
+        <ui:define name="dadosBanco">
+            <f:metadata>
+                <f:viewParam name="id" value="#{instituicaoBean.id}"/>
+                <f:event type="preRenderView" listener="#{instituicaoBean.loadModel}" />
+            </f:metadata>
+        </ui:define>
+        <ui:define name="titulo">Cadastrar Instituição</ui:define>
+        <ui:define name="content">
+            <h:form id="form_instituicao_view">
+                <p:growl id="message" sticky="false" showDetail="false" life="4500"/>
+                <div class="conjunto">
+                    <p:panelGrid columns="2" columnClasses="label, value" style="text-align: left;" styleClass="cadastros">
+
+                        <p:outputLabel value="Nome da Instituição: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="nome da instituição..." required="true" 
+                                      requiredMessage="Informe o nome da instituição"
+                                      value="#{instituicaoBean.instituicao.nome}" maxlength="80" size="45"/>
+
+                        <p:outputLabel value="Telefone:" style="white-space: nowrap; font-weight: bolder" for="telefone"/>
+                        <h:panelGroup>
+                            <p:inputText  placeholder="DDD" required="true" id="telefone"
+                                          requiredMessage="Informe o DDD"
+                                          value="#{instituicaoBean.instituicao.telefone.ddd}" maxlength="3" size="3" style="margin-right: 2%"/>
+
+                            <p:inputText  placeholder="Telefone" required="true"
+                                          requiredMessage="Informe o telefone"
+                                          value="#{instituicaoBean.instituicao.telefone.numero}" maxlength="10" size="20" style="margin-right: 2%"/>
+
+                        </h:panelGroup>
+                        
+                        <p:outputLabel value="Cidade: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="nome da cidade" required="true"
+                                      requiredMessage="Informar a cidade."
+                                      value="#{instituicaoBean.instituicao.endereco.cidade}" maxlength="200" size="45"/>
+                        
+                        <p:outputLabel value="Estado: " for="s_estado" style="white-space: nowrap; font-weight: bolder"/>
+                        <p:selectOneMenu id="s_estado"
+                                         value="#{instituicaoBean.instituicao.endereco.estado}" filter="true"
+                                         filterMatchMode="startsWith" required="true"
+                                         requiredMessage="Selecione o estado"
+                                         converter="estadoConverter" effect="fade">
+                            <f:selectItem itemLabel="Selecione o estado" itemValue="#{null}"/>
+                            <f:selectItems value="#{instituicaoBean.estados}" 
+                                           var="estado" itemLabel="#{estado.descricao}" 
+                                           itemValue="#{estado}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Logradouro: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="logradouro" required="true"
+                                      requiredMessage="Informar o logradouro."
+                                      value="#{instituicaoBean.instituicao.endereco.logradouro}" maxlength="200" size="45"/>
+
+                        <p:outputLabel value="Bairro: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="nome do bairro" required="true"
+                                      requiredMessage="Informar o Bairro."
+                                      value="#{instituicaoBean.instituicao.endereco.bairro}" maxlength="100" size="45"/>
+
+                        <p:outputLabel value="CEP: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputMask  placeholder="cep do endereço" required="true"
+                                      requiredMessage="Informe o CEP." mask="99999-999"
+                                      value="#{instituicaoBean.instituicao.endereco.cep}" maxlength="9" size="20"/>
+
+                        <p:outputLabel value="Número: " style="white-space: nowrap; font-weight: bolder"/>
+                        <p:inputText  placeholder="número" required="true"
+                                      requiredMessage="Informar o número do endereço."
+                                      value="#{instituicaoBean.instituicao.endereco.numero}" maxlength="10" size="15"/>
+
+                        <p:inputText value="#{instituicaoBean.instituicao.id}" type="hidden"/>
+                    </p:panelGrid>
+                    <center>
+                        <p:commandButton id="cmdCanc" type="request" value="Cancelar" action="#{instituicaoBean.cancel()}" update="message" />
+                        <p:commandButton value="Salvar" actionListener="#{instituicaoBean.salvar()}" update="message @form"/>
+                    </center>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
