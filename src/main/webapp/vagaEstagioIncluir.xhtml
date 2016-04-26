@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="principal.xhtml">
+        <ui:define name="dadosBanco">
+            <f:metadata>
+                <f:viewParam name="id" value="#{vagaEstagioBean.id}"/>
+                <f:event type="preRenderView" listener="#{vagaEstagioBean.loadModel}" />
+            </f:metadata>
+        </ui:define>
+        <ui:define name="titulo">Incluir nova Vaga de Estágio</ui:define>
+        <ui:define name="content">
+            <h:form id="form_vaga_estagio_view">
+                <p:growl id="message" sticky="false" showDetail="false" life="4500"/>
+                <div class="conjunto">
+                    <p:panelGrid columns="2" columnClasses="label, value" style="text-align: left;" styleClass="cadastros">
+
+                        <p:outputLabel value="Atividade:" style="white-space: nowrap;"/>
+                        <p:inputText  placeholder="Descrição da atividade" required="true" 
+                                      requiredMessage="Por favor informe a atividade"
+                                      value="#{vagaEstagioBean.vagaEstagio.atividade}" size="60"/>
+
+                        <p:outputLabel value="Turno: " for="s_turno"/>
+                        <p:selectOneMenu id="s_turno"
+                                         value="#{vagaEstagioBean.vagaEstagio.turnoTrabalho}" filter="true"
+                                         filterMatchMode="startsWith" required="true"
+                                         requiredMessage="Selecione o turno"
+                                         converter="turnoConverter" effect="fade">
+                        <f:selectItem itemLabel="Selecione um turno" itemValue="#{null}"/>
+                        <f:selectItems value="#{vagaEstagioBean.turnos}" 
+                                       var="turno" itemLabel="#{turno.descricao}" 
+                                       itemValue="#{turno}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Empresa: " for="s_empresa"/>
+                        <p:selectOneMenu id="s_empresa"
+                                         value="#{vagaEstagioBean.vagaEstagio.empresa}" filter="true"
+                                         filterMatchMode="startsWith" required="true"
+                                         requiredMessage="Selecione uma empresa"
+                                         converter="empresaConverter" effect="fade">
+                        <f:selectItem itemLabel="Selecione uma empresa" itemValue="#{null}"/>
+                        <f:selectItems value="#{vagaEstagioBean.empresas}" 
+                                       var="empresa" itemLabel="#{empresa.nomeFantasia}" 
+                                       itemValue="#{empresa}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Valor da Bolsa:" for="valorBolsa" style="white-space: nowrap;"/>
+                        <h:outputText id="output" value="Valor da bolsa R$ #{vagaEstagioBean.vagaEstagio.valorBolsa}.00" />
+                        <h:inputHidden  id="valorBolsa" required="true" 
+                                      requiredMessage="Por favor informe um valor"
+                                      value="#{vagaEstagioBean.vagaEstagio.valorBolsa}"/>
+                        <p:slider for="valorBolsa" display="output" style="width: 80%" type="float"
+                                  displayTemplate="Valor da bolsa R$ {value}.00" minValue="0"
+                                  maxValue="2000"/>
+                        
+                        <p:outputLabel value="Descrição da Vaga: " for="descricao"/>
+                        <p:inputTextarea value="#{vagaEstagioBean.vagaEstagio.descricao}" id="descricao"
+                                         style="width: 90%" required="true"
+                                         requiredMessage="Preencha a descrição da vaga!"/>
+                        
+                        <p:commandButton id="cmdAdd" value="Incluir" action="#{vagaEstagioBean.salvar()}" update="message" />
+                        <p:commandButton id="cmdCanc" type="request" value="Cancelar" action="#{vagaEstagioBean.cancel()}" update="message" />
+
+                        <p:inputText value="#{vagaEstagioBean.vagaEstagio.id}" type="hidden"/>
+                    </p:panelGrid>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
