@@ -6,7 +6,7 @@
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.user" value="webadmin"/>
       <property name="javax.persistence.jdbc.password" value="yvuJgfqEjl"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://http://ambientejsf.jelasticlw.com.br/sge2"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://http://ambientejsf.jelasticlw.com.br:5432/sge2"/>
       <property name="c3p0.acquire_increment" value="2"/>
       <property name="c3p0.idle_test_period" value="120"/>
       <property name="c3p0.max_size" value="30"/>
