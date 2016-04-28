@@ -17,7 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -30,10 +29,7 @@ import javax.persistence.Temporal;
 })
 public class Empresa implements Serializable {
     @Id
-    @SequenceGenerator(name = "empresa_id_gen",
-            sequenceName = "empresa_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "empresa_id_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="empresa_id")
     private Integer id;
     @Column(name = "razao_social", length = 200, nullable = false)

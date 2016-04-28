@@ -25,10 +25,7 @@ import javax.persistence.Temporal;
 public class Estagio implements Serializable {
     
     @Id
-    @SequenceGenerator(name = "estagio_id_gen",
-            sequenceName = "estagio_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "estagio_id_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
     @Column(name = "valor_bolsa")

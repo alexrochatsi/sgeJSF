@@ -25,10 +25,7 @@ import javax.persistence.Table;
 @Table(name="porte_empresa")
 public class PorteEmpresa implements Serializable {
     @Id
-    @SequenceGenerator(name = "porte_empresa_id_gen",
-            sequenceName = "porte_empresa_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "porte_empresa_id_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String descricao;
     

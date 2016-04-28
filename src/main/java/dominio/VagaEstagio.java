@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -28,11 +27,7 @@ import javax.persistence.Table;
 public class VagaEstagio implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "vaga_estagio_id_gen",
-            sequenceName = "vaga_estagio_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "vaga_estagio_id_gen")
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "valor_bolsa", nullable = false)
     private double valorBolsa;

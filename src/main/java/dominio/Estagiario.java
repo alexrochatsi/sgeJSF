@@ -35,10 +35,7 @@ import javax.persistence.Temporal;
 @Table(name = "estagiario")
 public class Estagiario implements Serializable {
     @Id
-    @SequenceGenerator(name = "estagiario_id_gen",
-            sequenceName = "estagiario_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "estagiario_id_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="estagiario_id")
     private Integer id;
     @Column(nullable = false)

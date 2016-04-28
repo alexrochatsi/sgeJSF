@@ -26,10 +26,7 @@ import javax.persistence.Table;
 @Table(name="turno")
 public class Turno implements Serializable {
     @Id
-    @SequenceGenerator(name = "turno_id_gen",
-            sequenceName = "turno_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "turno_id_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String descricao;
     

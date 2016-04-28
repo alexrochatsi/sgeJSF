@@ -25,10 +25,7 @@ import javax.persistence.Table;
 @Table(name="sexo")
 public class Sexo implements Serializable {
     @Id
-    @SequenceGenerator(name = "sexo_id_gen",
-            sequenceName = "sexo_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "sexo_id_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String descricao;
     

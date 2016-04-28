@@ -25,10 +25,7 @@ import javax.persistence.Table;
 public class Curso implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "curso_id_gen",
-            sequenceName = "curso_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "curso_id_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="curso_id")
     private Integer id;
 

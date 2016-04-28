@@ -21,10 +21,7 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class Endereco implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "endereco_id_seq")
-    @SequenceGenerator(name = "endereco_id_seq",
-            sequenceName = "endereco_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "cidade", length = 200, nullable = false)
     private String cidade;

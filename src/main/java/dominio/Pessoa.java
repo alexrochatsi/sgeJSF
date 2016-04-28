@@ -23,10 +23,7 @@ import javax.persistence.Temporal;
 public class Pessoa implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "pessoa_id_seq")
-    @SequenceGenerator(name = "pessoa_id_seq",
-            sequenceName = "pessoa_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pessoa_id")
     private Integer id;
     @Column(name = "nome", length = 80, nullable = false)
